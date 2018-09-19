@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,mBAAmB;EAClB,MAAM,EAAE,eAAe;EACvB,OAAO,EAAE,4BAA4B",
+"sources": ["../scss/qc_components/_form.scss"],
+"names": [],
+"file": "qc.css"
+}

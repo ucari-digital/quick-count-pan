@@ -1,0 +1,155 @@
+/** BEGIN: growl notifications */
+.growl-notification {
+  position: fixed;
+  width: 350px;
+  min-height: 50px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.03);
+  border: 1px solid #e9ebee;
+  background: #fff;
+  z-index: 1056;
+  font-size: 14px;
+  padding: 13px 25px;
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px; }
+  .growl-notification:before {
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    bottom: -1px;
+    content: '';
+    width: 4px; }
+  .growl-notification__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #929faa;
+    transition: color .1s;
+    cursor: pointer; }
+    .growl-notification__close-icon {
+      background-repeat: no-repeat;
+      display: inline-flex;
+      width: 16px;
+      height: 16px;
+      background-size: 100%;
+      background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3C!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 24 24' enable-background='new 0 0 24 24' xml:space='preserve'%3E%3Cg id='Bounding_Boxes'%3E%3Cpath fill='none' d='M0,0h24v24H0V0z'/%3E%3C/g%3E%3Cg id='Outline_1_'%3E%3Cpath d='M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41z'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: .4; }
+      .growl-notification__close-icon:hover {
+        opacity: .6; }
+  .growl-notification--closed {
+    z-index: 1055; }
+  .growl-notification__title {
+    font-size: 17px;
+    color: #000;
+    margin-top: -2px; }
+  .growl-notification__desc {
+    color: #939daa; }
+  .growl-notification--close-on-click {
+    cursor: pointer; }
+  .growl-notification--image {
+    width: 420px; }
+  .growl-notification__image {
+    margin-right: 17px; }
+  .growl-notification--alert:before {
+    background: #269af1; }
+  .growl-notification--alert .growl-notification__close:hover {
+    color: #269af1; }
+  .growl-notification--success:before {
+    background: #8bc34a; }
+  .growl-notification--success .growl-notification__close:hover {
+    color: #8bc34a; }
+  .growl-notification--warning:before {
+    background: #ffc107; }
+  .growl-notification--warning .growl-notification__close:hover {
+    color: #ffc107; }
+  .growl-notification--error:before {
+    background: #ff3d00; }
+  .growl-notification--error .growl-notification__close:hover {
+    color: #ff3d00; }
+  .growl-notification--info:before {
+    background: #ab47bc; }
+  .growl-notification--info .growl-notification__close:hover {
+    color: #ab47bc; }
+  .growl-notification.position-top-right.animation-slide-in, .growl-notification.position-bottom-right.animation-slide-in {
+    transform: translateX(100%);
+    animation: position-right-slide-in .3s forwards; }
+  .growl-notification.position-top-right.animation-slide-out, .growl-notification.position-bottom-right.animation-slide-out {
+    margin-right: -20px;
+    transform: translateX(0%);
+    animation: position-right-slide-out .3s forwards; }
+  .growl-notification.position-top-center.animation-slide-in {
+    transform: translateY(-100%);
+    animation: position-top-slide-in .3s forwards; }
+  .growl-notification.position-top-center.animation-slide-out {
+    margin-top: -20px;
+    transform: translateY(0%);
+    animation: position-top-slide-out .3s forwards; }
+  .growl-notification.position-bottom-center.animation-slide-in {
+    transform: translateY(100%);
+    animation: position-bottom-slide-in .3s forwards; }
+  .growl-notification.position-bottom-center.animation-slide-out {
+    margin-bottom: -20px;
+    transform: translateY(0%);
+    animation: position-bottom-slide-out .3s forwards; }
+  .growl-notification.position-top-left.animation-slide-in, .growl-notification.position-bottom-left.animation-slide-in {
+    transform: translateX(-100%);
+    animation: position-left-slide-in .3s forwards; }
+  .growl-notification.position-top-left.animation-slide-out, .growl-notification.position-bottom-left.animation-slide-out {
+    margin-left: -20px;
+    transform: translateX(0%);
+    animation: position-left-slide-out .3s forwards; }
+  .growl-notification.position-top-left, .growl-notification.position-top-right, .growl-notification.position-top-center {
+    transition: top .2s; }
+  .growl-notification.position-bottom-left, .growl-notification.position-bottom-center, .growl-notification.position-bottom-right {
+    transition: bottom .2s; }
+  .growl-notification.animation-fade-in {
+    opacity: 0;
+    animation: fade-in .3s forwards; }
+  .growl-notification.animation-fade-out {
+    animation: fade-out .3s forwards; }
+
+@keyframes position-right-slide-in {
+  100% {
+    transform: translateX(0%); } }
+
+@keyframes position-right-slide-out {
+  100% {
+    transform: translateX(100%); } }
+
+@keyframes position-left-slide-in {
+  100% {
+    transform: translateX(0%); } }
+
+@keyframes position-left-slide-out {
+  100% {
+    transform: translateX(-100%); } }
+
+@keyframes position-top-slide-in {
+  100% {
+    transform: translateY(0%); } }
+
+@keyframes position-top-slide-out {
+  100% {
+    transform: translateY(-100%); } }
+
+@keyframes position-bottom-slide-in {
+  100% {
+    transform: translateY(0%); } }
+
+@keyframes position-bottom-slide-out {
+  100% {
+    transform: translateY(100%); } }
+
+@keyframes fade-in {
+  100% {
+    opacity: 1; } }
+
+@keyframes fade-out {
+  100% {
+    opacity: 0; } }
+
+/** END: growl notifications */
+
