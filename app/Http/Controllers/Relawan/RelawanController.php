@@ -15,6 +15,8 @@ use App\Model\Target;
 
 use App\Helper\TimeFormat;
 use App\Helper\Lib;
+use App\Helper\FileUpload;
+use App\Helper\Setting;
 class RelawanController extends Controller
 {
     public function relawan()
@@ -164,7 +166,8 @@ class RelawanController extends Controller
     {
         $kota = Kota::whereIn('id', GSController::cityAvailabel())->get();
         $data = Anggota::where('anggota_id', $anggota_id)->first();
-        return view('relawan.edit-relawan', compact('kota', 'data'));
+        $provinsi = Setting::Provinsi();
+        return view('relawan.edit-relawan', compact('kota', 'data', 'provinsi'));
     }
 
     public function update(Request $request, $anggota_id)

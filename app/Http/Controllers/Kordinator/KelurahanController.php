@@ -42,7 +42,6 @@ class KelurahanController extends Controller
     public function submit(Request $request)
     {
     	try {
-	    	{
             $time = new TimeFormat;
 
             $file_upload = FileUpload::foto($request, 'foto');

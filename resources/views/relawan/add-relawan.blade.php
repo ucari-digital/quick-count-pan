@@ -41,13 +41,13 @@
 								<input type="text" name="no_kk" class="form-control" placeholder="No Kartu Keluarga" />
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Nama (Sesuai KTP)</label>
 								<input type="text" name="name" class="form-control" placeholder="Nama Lengkap" onchange="GUID(this.value)" />
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label>Jenis Kelamin</label>
 								<select name="jk" id="" class="form-control">
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Tempat, Tgl lahir</label>
 								<div class="input-group">
@@ -79,7 +79,13 @@
 								<input type="text" name="rtrw" class="form-control" placeholder="RT/RW">
 							</div>
 						</div>
-					</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label>TPS</label>
+								<input type="text" name="tps" class="form-control" placeholder="TPS">
+							</div>
+						</div>
+					</div>	
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
@@ -162,22 +168,28 @@
 						</div> --}}
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>User ID</label>
 								<input type="text" name="anggota_id" class="form-control" placeholder="User ID">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" placeholder="Password">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Foto</label>
 								<input type="file" name="foto" class="form-control" placeholder="Foto">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Foto KTP</label>
+								<input type="file" name="foto_ktp" class="form-control" placeholder="Foto">
 							</div>
 						</div>
 					</div>

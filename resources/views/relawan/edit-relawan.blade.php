@@ -27,13 +27,19 @@
 				<form action="{{url('relawan/update/'.$data->anggota_id)}}" method="post" enctype="multipart/form-data">
 					@csrf
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>No KTP</label>
 								<input type="text" name="no_ktp" class="form-control" placeholder="No KTP" value="{{$data->no_ktp}}" />
 							</div>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>No Kartu Keluarga</label>
+								<input type="text" name="no_kk" class="form-control" placeholder="No Kartu Keluarga" value="{{$data->no_kartu_keluarga}}" />
+							</div>
+						</div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Nama (Sesuai KTP)</label>
 								<input type="text" name="name" class="form-control" placeholder="Nama Lengkap" onchange="GUID(this.value)" value="{{$data->name}}" />
@@ -51,7 +57,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Tempat, Tgl lahir</label>
 								<div class="input-group">
@@ -60,22 +66,42 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-7">
+						<div class="col-md-5">
 							<div class="form-group">
 								<label>Alamat rumah sekarang</label>
 								<input type="text" name="alamat" class="form-control" placeholder="Alamat rumah" value="{{$data->alamat}}" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label>RT/RW</label>
+								<input type="text" name="rtrw" class="form-control" placeholder="RT/RW" value="{{$data->rtrw}}">
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label>TPS</label>
+								<input type="text" name="tps" class="form-control" placeholder="TPS" value="{{$data->tps}}">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
+								<label>Provinsi</label>
+								<select name="provinsi" class="form-control provinsi" required="">
+									<option value="{{$data->provinsi}}">{{App\Model\Provinsi::getName($data->provinsi)['name']}}</option>
+									@foreach($provinsi as $item)
+									<option value="{{$item->id}}">{{$item->name}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
 								<label>Kabupaten / Kota</label>
 								<select name="kabkota" id="" class="form-control kabkota" required="">
 									<option value="{{$data->kabkota}}">{{App\Model\Kota::getName($data->kabkota)['name']}}</option>
-									@foreach($kota as $item)
-									<option value="{{$item->id}}">{{$item->name}}</option>
-									@endforeach
 								</select>
 							</div>
 						</div>
@@ -95,12 +121,6 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label>RT/RW</label>
-								<input type="text" name="rtrw" class="form-control" placeholder="RT/RW" value="{{$data->rtrw}}">
-							</div>
-						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
@@ -118,6 +138,12 @@
 							</div>
 						</div>
 						<div class="col-md-6">
+							<div class="form-group">
+								<label>No HP</label>
+								<input type="text" name="no_hp" class="form-control" placeholder="No HP" value="{{$data->no_hp}}">
+							</div>
+						</div>
+						{{-- <div class="col-md-6">
 							<div class="form-group">
 								<label>Pekerjaan</label>
 								<select name="pekerjaan" class="form-control">
@@ -139,9 +165,9 @@
 									<option value="Tidak / Belum Bekerja">Tidak / Belum Bekerja</option>
 								</select>
 							</div>
-						</div>
+						</div> --}}
 					</div>
-					<div class="row">
+{{-- 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>No HP</label>
@@ -160,7 +186,7 @@
 								<input type="Email" name="email" class="form-control" placeholder="No Email" value="{{$data->email}}">
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
