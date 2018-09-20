@@ -16,7 +16,7 @@ use App\Model\Target;
 use App\Helper\TimeFormat;
 use App\Helper\Lib;
 use App\Helper\Setting;
-use App\helper\FileUpload;
+use App\Helper\FileUpload;
 class PusatController extends Controller
 {
         public function index()
