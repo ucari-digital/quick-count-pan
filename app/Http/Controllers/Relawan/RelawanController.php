@@ -141,18 +141,40 @@ class RelawanController extends Controller
     {
     	try {
 	    	$time = new TimeFormat;
-			$ttl = $time->date($request->tgl_lahir)->toFormat('sys');
-			$file = Storage::disk('public')->put('images/avatar', $request->foto);
-			$file_name = Storage::url($file);
 
-			$input = $request;
-			$input['ttl'] = $request->tempat.','.$ttl;
-			$input['posisi'] = 'relawan';
-			$input['role'] = 'relawan';
-			$input['avatar'] = $file_name;
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
+
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
+
+            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
+            $file = Storage::disk('public')->put('images/avatar', $request->foto);
+            $file_name = Storage::url($file);
+
+            $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+            $file_name_ktp = Storage::url($file_ktp);
+
+            $input = $request;
+            $input['ttl'] = $request->tempat.','.$ttl;
+            $input['posisi'] = 'relawan';
+            $input['role'] = 'relawan';
+            $input['avatar'] = $file_name;
             $input['group_id'] = Lib::auth()->group_id;
+            $input['referred_by'] = Lib::auth()->anggota_id;
+            $input['fktp'] = $file_name_ktp;
 
-	    	Anggota::store($input);
+	    	$anggota = Anggota::store($input);
+            $field = [
+                'message' => 'mendaftarkan <b>'.$anggota->name.'</b> sebagai Relawan',
+                'image' => '',
+                'referrer' => $anggota->id,
+                'type' => 'simpan'
+            ];
+            Activity::store($field);
 
 	    	return redirect()->back()
 	    	->with('status', 'success')
@@ -177,6 +199,14 @@ class RelawanController extends Controller
             $time = new TimeFormat;
             $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
 
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
+
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
 
             $input = $request;
             $input['ttl'] = $request->tempat.','.$ttl;
@@ -195,9 +225,9 @@ class RelawanController extends Controller
             if (empty($request->foto_ktp)) {
                 $input['fktp'] = $anggota_data->foto_ktp;
             } else {
-                $foto_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
-                $foto_name_ktp = Storage::url($foto_ktp);
-                $input['fktp'] = $foto_name_ktp;
+                $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+                $file_name_ktp = Storage::url($file_ktp);
+                $input['fktp'] = $file_name_ktp;
             }
 
             if (empty($request->password)) {
@@ -205,14 +235,12 @@ class RelawanController extends Controller
             } else {
                 $input['password'] = Hash::make($request->password);    
             }
-
-
             
             Anggota::commit($anggota_id, $input);
 
             return redirect()->back()
             ->with('status', 'success')
-            ->with('message', 'Berhasil mendaftarkan anggota');
+            ->with('message', 'Berhasil mengubah data relawan');
         } catch (\Exception $e) {
             return $e->getMessage();    
         }

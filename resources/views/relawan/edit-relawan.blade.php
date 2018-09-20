@@ -187,7 +187,7 @@
 							</div>
 						</div>
 					</div> --}}
-					<div class="row">
+					{{-- <div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Divisi Jarigan</label>
@@ -199,25 +199,31 @@
 								</select>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					@if(request('dl') != 'true')
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>User ID</label>
 								<input type="text" name="anggota_id" class="form-control" placeholder="User ID" value="{{$data->anggota_id}}">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" placeholder="Password">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Foto</label>
 								<input type="file" name="foto" class="form-control" placeholder="Foto">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Foto KTP</label>
+								<input type="file" name="foto_ktp" class="form-control" placeholder="Foto">
 							</div>
 						</div>
 					</div>

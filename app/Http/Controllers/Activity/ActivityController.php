@@ -14,8 +14,5 @@ class ActivityController extends Controller
 		$data = Activity::where('group_id', Lib::auth()->group_id)->orderBy('updated_at', 'desc')->get();
 		return view('activity.activity', compact('data'));
 	}
-    public function store()
-    {
-    	
-    }
+
 }

@@ -169,6 +169,14 @@ Route::middleware(['anggota'])->group(function(){
 
 	Route::prefix('activity')->group(function(){
 		Route::get('/', 'Activity\ActivityController@index');
+
+		// Kegiatan
+		Route::get('kegiatan', 'Activity\KegiatanController@index');
+		Route::get('kegiatan/create', 'Activity\KegiatanController@create');
+		Route::post('kegiatan/submit', 'Activity\KegiatanController@submit');
+		Route::get('kegiatan/edit/{id}', 'Activity\KegiatanController@edit');
+		Route::post('kegiatan/update/{id}', 'Activity\KegiatanController@update');
+		Route::get('kegiatan/delete/{id}/{param}', 'Activity\KegiatanController@delete');
 	});
 
 	Route::prefix('setting')->group(function(){

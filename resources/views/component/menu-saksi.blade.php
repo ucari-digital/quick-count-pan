@@ -5,6 +5,12 @@
             <span class="sidebar-section-nav__item-text">Halaman Utama</span>
         </a>
     </li>
+    <li class="sidebar-section-nav__item">
+        <a class="sidebar-section-nav__link" href="{{url('activity/kegiatan')}}">
+            <span class="sidebar-section-nav__item-icon mdi mdi-account-group"></span>
+            <span class="sidebar-section-nav__item-text">Upload Aktivitas</span>
+        </a>
+    </li>
     <div class="sidebar-section__separator">Features</div>
     <li class="sidebar-section-nav__item">
         <a class="sidebar-section-nav__link" href="{{url('event/pendataan/input/pra-event/')}}">

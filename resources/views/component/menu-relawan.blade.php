@@ -6,3 +6,9 @@
         </a>
     </li>
 </ul>
+<li class="sidebar-section-nav__item">
+    <a class="sidebar-section-nav__link" href="{{url('activity/kegiatan')}}">
+        <span class="sidebar-section-nav__item-icon mdi mdi-account-group"></span>
+        <span class="sidebar-section-nav__item-text">Upload Aktivitas</span>
+    </a>
+</li>

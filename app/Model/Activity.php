@@ -19,6 +19,8 @@ class Activity extends Model
     		$field->referrer = $r['referrer'];
     		$field->type = $r['type'];
     		$field->save();
+
+            return $field;
     	} catch (Exception $e) {
     		
     	}
