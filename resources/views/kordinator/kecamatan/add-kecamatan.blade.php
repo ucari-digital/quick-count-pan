@@ -27,19 +27,6 @@
 				<form action="{{url('kordinator/kecamatan/create/submit')}}" method="post" enctype="multipart/form-data">
 					@csrf
 					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Kordinator Kota</label>
-								<select name="referred_by" class="form-control">
-									<option value="">PILIH</option>
-									@foreach($kordinator_kota as $item)
-									<option value="{{$item->anggota_id}}">{{$item->name}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="row">
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>No KTP</label>
@@ -55,7 +42,7 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label>Jenis Kelamin</label>
-								<select name="jk" id="" class="form-control">
+								<select name="jk" class="form-control">
 									<option value="L">L</option>
 									<option value="P">P</option>
 								</select>
@@ -63,7 +50,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Tempat, Tgl lahir</label>
 								<div class="input-group">
@@ -82,6 +69,12 @@
 							<div class="form-group">
 								<label>RT/RW</label>
 								<input type="text" name="rtrw" class="form-control" placeholder="RT/RW">
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label>TPS</label>
+								<input type="text" name="tps" class="form-control" placeholder="TPS">
 							</div>
 						</div>
 					</div>
@@ -126,7 +119,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Agama</label>
-								<select name="agama" id="" class="form-control">
+								<select name="agama" class="form-control">
 									<option value="islam">Islam</option>
 									<option value="kristen protestan">Kristen Protestan</option>
 									<option value="katolik">Katolik</option>
@@ -181,34 +174,28 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Divisi Jarigan</label>
-								<select name="divisi_jaringan" id="" class="form-control">
-									<option value="Gerindra">Gerindra</option>
-									<option value="PAN">PAN</option>
-									<option value="PKS">PKS</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>User ID</label>
 								<input type="text" name="anggota_id" class="form-control" placeholder="User ID">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" placeholder="Password">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Foto</label>
 								<input type="file" name="foto" class="form-control" placeholder="Foto">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Foto KTP</label>
+								<input type="file" name="foto_ktp" class="form-control" placeholder="Foto">
 							</div>
 						</div>
 					</div>

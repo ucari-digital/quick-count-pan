@@ -32,7 +32,7 @@
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>No KTP</label>
-								<input type="text" name="no_ktp" class="form-control nik" placeholder="No KTP" />
+								<input type="text" name="no_ktp" class="form-control" placeholder="No KTP" />
 							</div>
 						</div>
 						<div class="col-md-5">
@@ -52,7 +52,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Tempat, Tgl lahir</label>
 								<div class="input-group">
@@ -71,6 +71,12 @@
 							<div class="form-group">
 								<label>RT/RW</label>
 								<input type="text" name="rtrw" class="form-control" placeholder="RT/RW">
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label>TPS</label>
+								<input type="text" name="tps" class="form-control" placeholder="TPS">
 							</div>
 						</div>
 					</div>
@@ -170,34 +176,28 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Divisi Jarigan</label>
-								<select name="divisi_jaringan" class="form-control">
-									<option value="Gerindra">Gerindra</option>
-									<option value="PAN">PAN</option>
-									<option value="PKS">PKS</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>User ID</label>
 								<input type="text" name="anggota_id" class="form-control" placeholder="User ID">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" placeholder="Password">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Foto</label>
 								<input type="file" name="foto" class="form-control" placeholder="Foto">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Foto KTP</label>
+								<input type="file" name="foto_ktp" class="form-control" placeholder="Foto">
 							</div>
 						</div>
 					</div>
@@ -217,73 +217,7 @@
 @section('footer')
 <script type="text/javascript">
 	function GUID(value) {
-		var array = value.split(' ');
-		$("input[name=anggota_id]").val(array[0]+getRandomInt(99));
+		$("input[name=anggota_id]").val($('input[name=no_ktp]').val());
 	}
-	function getRandomInt(max) {
-		return Math.floor(Math.random() * Math.floor(max));
-	}
-	$('.provinsi').change(function(){
-		$('.kabkota').html('');
-		$('.kabkota').append($("<option></option>").attr("value", "").text('PILIH'));
-		$.get('{{url('kota')}}/'+$(this).val(), function(data){
-			$.each(data, function(key, value) {  
-				console.log(value);
-				$('.kabkota')
-				.append($("<option></option>")
-			        .attr("value",value.id)
-			        .text(value.name)); 
-			});
-		});
-	});
-	$('.kabkota').change(function(){
-		$('.kecamatan').html('');
-		$('.kecamatan').append($("<option></option>").attr("value", "").text('PILIH'));
-		$.get('{{url('kecamatan')}}/'+$(this).val(), function(data){
-			$.each(data, function(key, value) {  
-				$('.kecamatan')
-				.append($("<option></option>")
-			        .attr("value",value.id)
-			        .text(value.name)); 
-			});
-		});
-	});
-	$('.kecamatan').change(function(){
-		$('.kelurahan').html('');
-		$('.kelurahan').append($("<option></option>").attr("value", "").text('PILIH'));
-		$.get('{{url('kelurahan')}}/'+$(this).val(), function(data){
-			$.each(data, function(key, value) {  
-				$('.kelurahan')
-				.append($("<option></option>")
-			        .attr("value",value.id)
-			        .text(value.name)); 
-			});
-		});
-	});
-
-	$('.a-kabkota').change(function(){
-		$('.a-kecamatan').html('');
-		$('.a-kecamatan').append($("<option></option>").attr("value", "").text('PILIH'));
-		$.get('{{url('anggota')}}/'+$(this).val(), function(data){
-			$.each(data, function(key, value) {  
-				$('.a-kecamatan')
-				.append($("<option></option>")
-			        .attr("value",value.anggota_id)
-			        .text(value.name)); 
-			});
-		});
-	});
-	$('.a-kecamatan').change(function(){
-		$('.a-kelurahan').html('');
-		$('.a-kecamatan').append($("<option></option>").attr("value", "").text('PILIH'));
-		$.get('{{url('anggota')}}/'+$(this).val(), function(data){
-			$.each(data, function(key, value) {  
-				$('.a-kelurahan')
-				.append($("<option></option>")
-			        .attr("value",value.anggota_id)
-			        .text(value.name)); 
-			});
-		});
-	});
 </script>
 @endsection

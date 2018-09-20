@@ -18,6 +18,8 @@ use App\Model\Activity;
 use App\Model\Target;
 use App\Helper\TimeFormat;
 use App\Helper\Lib;
+use App\Helper\FileUpload;
+use App\Helper\Setting;
 class KordinatorController extends Controller
 {
     public function kordinator()
@@ -79,7 +81,7 @@ class KordinatorController extends Controller
             $data[$numb]['downline'] = Anggota::where('referred_by', $item->anggota_id)->where('role', 'kordinator')->count();
         }
 
-        $provinsi = Provinsi::all();
+        $provinsi = Setting::Provinsi();
         return view('kordinator.all', compact('data', 'provinsi'));
     }
 
@@ -97,18 +99,13 @@ class KordinatorController extends Controller
 
     public function create()
     {
-        $provinsi = Provinsi::all();
+        $provinsi = Setting::Provinsi();
         return view('kordinator.add-kordinator', compact('provinsi'));
     }
 
     public function submit(Request $request)
     {
         try {
-            $time = new TimeFormat;
-            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
-            $file = Storage::disk('public')->put('images/avatar', $request->foto);
-            $file_name = Storage::url($file);
-
             if ($request->posisi == 'pusat') {
                 $posisi = 'kabkota';
             }
@@ -124,6 +121,24 @@ class KordinatorController extends Controller
             if ($request->posisi == 'kelurahan') {
                 $posisi = 'rtrw';
             }
+            
+            $time = new TimeFormat;
+
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
+
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
+
+            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
+            $file = Storage::disk('public')->put('images/avatar', $request->foto);
+            $file_name = Storage::url($file);
+
+            $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+            $file_name_ktp = Storage::url($file_ktp);
 
             $input = $request;
             $input['ttl'] = $request->tempat.','.$ttl;
@@ -132,6 +147,7 @@ class KordinatorController extends Controller
             $input['avatar'] = $file_name;
             $input['group_id'] = Lib::auth()->group_id;
             $input['referred_by'] = Lib::auth()->anggota_id;
+            $input['fktp'] = $file_name_ktp;
 
             if ($posisi == 'kabkota') {
                 $st = 'Kabupaten / Kota';
@@ -161,7 +177,7 @@ class KordinatorController extends Controller
     public function advSearch(Request $request)
     {
         $data_kabkota = GSController::advancedSearch($request, 'kordinator');
-        $provinsi = Provinsi::all();
+        $provinsi = Setting::Provinsi();
         $data = [];
         foreach ($data_kabkota as $numb => $item) {
             $data[$numb] = $item;

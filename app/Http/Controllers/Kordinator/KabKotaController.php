@@ -13,6 +13,7 @@ use App\Model\Kelurahan;
 use App\Model\Provinsi;
 use App\Model\Activity;
 
+use App\Helper\FileUpload;
 use App\Helper\TimeFormat;
 use App\Helper\Lib;
 use App\Helper\Setting;
@@ -45,9 +46,22 @@ class KabKotaController extends Controller
     {
     	try {
 	    	$time = new TimeFormat;
-			$ttl = $time->date($request->tgl_lahir)->toFormat('sys');
-			$file = Storage::disk('public')->put('images/avatar', $request->foto);
-			$file_name = Storage::url($file);
+
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
+
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
+
+            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
+            $file = Storage::disk('public')->put('images/avatar', $request->foto);
+            $file_name = Storage::url($file);
+
+            $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+            $file_name_ktp = Storage::url($file_ktp);
 
 			$input = $request;
 			$input['ttl'] = $request->tempat.','.$ttl;
@@ -56,6 +70,7 @@ class KabKotaController extends Controller
 			$input['avatar'] = $file_name;
             $input['group_id'] = Lib::auth()->group_id;
             $input['referred_by'] = Lib::auth()->anggota_id;
+            $input['fktp'] = $file_name_ktp;
 
 	    	$anggota = Anggota::store($input);
             $field = [
@@ -84,9 +99,17 @@ class KabKotaController extends Controller
     {
     	try {
     		$anggota_data = Anggota::where('anggota_id', $anggota_id)->first();
-	    	$time = new TimeFormat;
-			$ttl = $time->date($request->tgl_lahir)->toFormat('sys');
+            $time = new TimeFormat;
+            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
 
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
+
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
 
 			$input = $request;
 			$input['ttl'] = $request->tempat.','.$ttl;
@@ -101,14 +124,20 @@ class KabKotaController extends Controller
 				$input['avatar'] = $file_name;
 			}
 
+            if (empty($request->foto_ktp)) {
+                $input['fktp'] = $anggota_data->foto_ktp;
+            } else {
+                $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+                $file_name_ktp = Storage::url($file_ktp);
+                $input['fktp'] = $file_name_ktp;
+            }
+
 			if (empty($request->password)) {
 				$input['password'] = $anggota_data->password;
 			} else {
 				$input['password'] = Hash::make($request->password);	
 			}
 
-
-			
 	    	Anggota::commit($anggota_id, $input);
 
 	    	return redirect('kordinator/kabkota/edit/'.$anggota_id)

@@ -51,7 +51,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Tempat, Tgl lahir</label>
 								<div class="input-group">
@@ -70,6 +70,12 @@
 							<div class="form-group">
 								<label>RT/RW</label>
 								<input type="text" name="rtrw" class="form-control" placeholder="RT/RW" value="{{$data->rtrw}}">
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label>TPS</label>
+								<input type="text" name="tps" class="form-control" placeholder="TPS" value="{{$data->tps}}">
 							</div>
 						</div>
 					</div>
@@ -184,22 +190,28 @@
 					</div>
 					@if(request('dl') != 'true')
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>User ID</label>
 								<input type="text" name="anggota_id" class="form-control" placeholder="User ID" value="{{$data->anggota_id}}">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Password {{request('dl')}}</label>
 								<input type="password" name="password" class="form-control" placeholder="Password">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Foto</label>
 								<input type="file" name="foto" class="form-control" placeholder="Foto">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Foto KTP</label>
+								<input type="file" name="foto_ktp" class="form-control" placeholder="Foto">
 							</div>
 						</div>
 					</div>

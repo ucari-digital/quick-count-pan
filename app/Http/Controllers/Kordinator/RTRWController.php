@@ -24,7 +24,7 @@ class RTRWController extends Controller
         if ($auth->role == 'superadmin') {
             $data_rtrw = Anggota::where('posisi', 'rtrw')->get();
         } else {
-    	   $data_rtrw = Anggota::where('group_id', $auth->group_id)->where('posisi', 'rtrw')->get();
+    	   $data_rtrw = Anggota::where('group_id', $auth->group_id)->where('referred_by', $auth->anggota_id)->where('posisi', 'rtrw')->get();
         }
         $provinsi = Setting::Provinsi();
         $data = [];

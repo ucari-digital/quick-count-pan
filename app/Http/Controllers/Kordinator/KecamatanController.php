@@ -15,6 +15,8 @@ use App\Model\Activity;
 
 use App\Helper\TimeFormat;
 use App\Helper\Lib;
+use App\Helper\FileUpload;
+use App\Helper\Setting;
 use App\Http\Controllers\GSController;
 class KecamatanController extends Controller
 {
@@ -22,7 +24,7 @@ class KecamatanController extends Controller
     public function index()
     {
     	$data_kecamatan = Anggota::where('posisi', 'kecamatan')->get();
-        $provinsi = Provinsi::all();
+        $provinsi = Setting::Provinsi();
         $data = [];
         foreach ($data_kecamatan as $numb => $item) {
             $data[$numb] = $item;
@@ -34,7 +36,7 @@ class KecamatanController extends Controller
 
     public function create()
     {
-    	$provinsi = Provinsi::all();
+    	$provinsi = Setting::Provinsi();
         $kordinator_kota = Anggota::where('posisi', 'kabkota')->get();
     	return view('kordinator.kecamatan.add-kecamatan', compact('provinsi', 'kordinator_kota'));
     }
@@ -43,17 +45,31 @@ class KecamatanController extends Controller
     {
     	try {
 	    	$time = new TimeFormat;
-			$ttl = $time->date($request->tgl_lahir)->toFormat('sys');
-			$file = Storage::disk('public')->put('images/avatar', $request->foto);
-			$file_name = Storage::url($file);
 
-			$input = $request;
-			$input['ttl'] = $request->tempat.','.$ttl;
-			$input['posisi'] = 'kecamatan';
-			$input['role'] = 'kordinator';
-			$input['avatar'] = $file_name;
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
+
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
+
+            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
+            $file = Storage::disk('public')->put('images/avatar', $request->foto);
+            $file_name = Storage::url($file);
+
+            $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+            $file_name_ktp = Storage::url($file_ktp);
+
+            $input = $request;
+            $input['ttl'] = $request->tempat.','.$ttl;
+            $input['posisi'] = 'kecamatan';
+            $input['role'] = 'kordinator';
+            $input['avatar'] = $file_name;
             $input['group_id'] = Lib::auth()->group_id;
             $input['referred_by'] = Lib::auth()->anggota_id;
+            $input['fktp'] = $file_name_ktp;
 
 	    	$anggota = Anggota::store($input);
             $field = [
@@ -74,7 +90,7 @@ class KecamatanController extends Controller
 
     public function edit($anggota_id)
     {
-    	$provinsi = Provinsi::all();
+    	$provinsi = Setting::Provinsi();
     	$data = Anggota::where('anggota_id', $anggota_id)->first();
     	return view('kordinator.kecamatan.edit-kecamatan', compact('provinsi', 'data'));
     }
@@ -83,32 +99,45 @@ class KecamatanController extends Controller
     {
     	try {
     		$anggota_data = Anggota::where('anggota_id', $anggota_id)->first();
-	    	$time = new TimeFormat;
-			$ttl = $time->date($request->tgl_lahir)->toFormat('sys');
+            $time = new TimeFormat;
+            $ttl = $time->date($request->tgl_lahir)->toFormat('sys');
 
+            $file_upload = FileUpload::foto($request, 'foto');
+            $file_upload = FileUpload::foto($request, 'foto_ktp');
 
-			$input = $request;
-			$input['ttl'] = $request->tempat.','.$ttl;
-			$input['posisi'] = 'kecamatan';
-			$input['role'] = 'kordinator';
-            $input['referred_by'] = $anggota_data->referred_by;
+            if ($file_upload == 'failed') {
+                return redirect()->back()
+                ->with('status', 'failed')
+                ->with('message', 'Tipe data yang diupload tidak didukung');
+            }
 
-			if (empty($request->foto)) {
-				$input['avatar'] = $anggota_data->foto;
-			} else {
-				$file = Storage::disk('public')->put('images/avatar', $request->foto);
-				$file_name = Storage::url($file);
-				$input['avatar'] = $file_name;
-			}
+            $input = $request;
+            $input['ttl'] = $request->tempat.','.$ttl;
+            $input['posisi'] = 'kecamatan';
+            $input['role'] = 'kordinator';
 
-			if (empty($request->password)) {
-				$input['password'] = $anggota_data->password;
-			} else {
-				$input['password'] = Hash::make($request->password);	
-			}
+            if (empty($request->foto)) {
+                $input['avatar'] = $anggota_data->foto;
+            } else {
+                $file = Storage::disk('public')->put('images/avatar', $request->foto);
+                $file_name = Storage::url($file);
+                $input['avatar'] = $file_name;
+            }
 
+            if (empty($request->foto_ktp)) {
+                $input['fktp'] = $anggota_data->foto_ktp;
+            } else {
+                $file_ktp = Storage::disk('public')->put('images/ktp', $request->foto_ktp);
+                $file_name_ktp = Storage::url($file_ktp);
+                $input['fktp'] = $file_name_ktp;
+            }
 
-			
+            if (empty($request->password)) {
+                $input['password'] = $anggota_data->password;
+            } else {
+                $input['password'] = Hash::make($request->password);    
+            }
+
 	    	Anggota::commit($anggota_id, $input);
 
 	    	return redirect('kordinator/kecamatan/edit/'.$anggota_id)
@@ -123,7 +152,7 @@ class KecamatanController extends Controller
     {
         $request['posisi'] = 'kecamatan';
         $data_kabkota = GSController::advancedSearch($request, 'kordinator');
-        $provinsi = Provinsi::all();
+        $provinsi = Setting::Provinsi();
         $data = [];
         foreach ($data_kabkota as $numb => $item) {
             $data[$numb] = $item;
