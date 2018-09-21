@@ -23,6 +23,7 @@
             <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('kordinator/kecamatan')}}">Kecamatan</a></li>
             <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('kordinator/kelurahan')}}">Kelurahan</a></li>
             <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('kordinator/rtrw')}}">RT / RW</a></li>
+            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('kordinator/tps')}}">TPS</a></li>
         </ul>
     </li>
     <li class="sidebar-section-nav__item">
