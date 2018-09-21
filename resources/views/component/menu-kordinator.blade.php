@@ -31,7 +31,7 @@
             <span class="sidebar-section-nav__item-text">Aktivitas</span>
         </a>
         <ul class="sidebar-section-subnav">
-            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('activity')}}">Distribusi APK</a></li>
+            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('activity/kegiatan')}}">Distribusi APK</a></li>
             <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('activity')}}">History Pengguna</a></li>
         </ul>
     </li>
@@ -175,10 +175,14 @@
         </a>
     </li>
     <li class="sidebar-section-nav__item">
-        <a class="sidebar-section-nav__link" href="{{url('kordinator/rtrw')}}">
-            <span class="sidebar-section-nav__item-icon mdi mdi-account-multiple"></span>
-            <span class="sidebar-section-nav__item-text">Koordinator RT / RW</span>
+        <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+            <span class="sidebar-section-nav__item-icon mdi mdi-account-star"></span>
+            <span class="sidebar-section-nav__item-text">Koordinator</span>
         </a>
+        <ul class="sidebar-section-subnav">
+            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('kordinator/rtrw')}}">RT / RW</a></li>
+            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{url('kordinator/tps')}}">TPS</a></li>
+        </ul>
     </li>
     <li class="sidebar-section-nav__item">
         <a class="sidebar-section-nav__link" href="{{url('relawan/data')}}">
@@ -222,6 +226,12 @@
         <a class="sidebar-section-nav__link" href="{{url('kordinator')}}">
             <span class="sidebar-section-nav__item-icon mdi mdi-home"></span>
             <span class="sidebar-section-nav__item-text">Halaman Utama</span>
+        </a>
+    </li>
+    <li class="sidebar-section-nav__item">
+        <a class="sidebar-section-nav__link" href="{{url('kordinator/tps')}}">
+            <span class="sidebar-section-nav__item-icon mdi mdi-account-edit"></span>
+            <span class="sidebar-section-nav__item-text">Koordinator TPS</span>
         </a>
     </li>
     <li class="sidebar-section-nav__item">

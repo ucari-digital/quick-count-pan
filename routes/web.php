@@ -64,6 +64,15 @@ Route::middleware(['anggota'])->group(function(){
 			Route::post('/search', 'Kordinator\KelurahanController@advSearch');
 		});
 
+		Route::prefix('tps')->group(function(){
+			Route::get('/', 'Kordinator\TPSController@index');
+			Route::get('/create', 'Kordinator\TPSController@create');
+			Route::post('/create/submit', 'Kordinator\TPSController@submit');
+			Route::get('/edit/{anggota_id}', 'Kordinator\TPSController@edit');
+			Route::post('/update/{anggota_id}', 'Kordinator\TPSController@update');
+			Route::post('/search', 'Kordinator\TPSController@advSearch');
+		});
+
 		Route::prefix('pusat')->group(function(){
 			Route::get('/', 'Kordinator\PusatController@index');
 			Route::get('/create', 'Kordinator\PusatController@create');

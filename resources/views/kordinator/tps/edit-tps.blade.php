@@ -2,7 +2,7 @@
 @section('breadcrumb')
 <div class="page-content__header">
 	<div>
-		<h2 class="page-content__header-heading">Ubah Data Koordinator Kota</h2>
+		<h2 class="page-content__header-heading">Ubah Data Kordinator TPS</h2>
 	</div>
 </div>
 <div class="row">
@@ -24,7 +24,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-body">
-				<form action="{{url('kordinator/kabkota/update/'.$data->anggota_id)}}" method="post" enctype="multipart/form-data">
+				<form action="{{url('kordinator/tps/update/'.$data->anggota_id)}}" method="post" enctype="multipart/form-data">
 					@csrf
 					<div class="row">
 						<div class="col-md-5">

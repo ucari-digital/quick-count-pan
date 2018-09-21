@@ -145,7 +145,7 @@ class RTRWController extends Controller
 			
 	    	Anggota::commit($anggota_id, $input);
 
-	    	return redirect('kordinator/rtrw/edit/'.$anggota_id)
+	    	return redirect('kordinator/rtrw/edit/'.$request->anggota_id)
 	    	->with('status', 'success')
 	    	->with('message', 'Berhasil mengubah data');
     	} catch (\Exception $e) {

@@ -140,7 +140,7 @@ class KecamatanController extends Controller
 
 	    	Anggota::commit($anggota_id, $input);
 
-	    	return redirect('kordinator/kecamatan/edit/'.$anggota_id)
+	    	return redirect('kordinator/kecamatan/edit/'.$request->anggota_id)
 	    	->with('status', 'success')
 	    	->with('message', 'Berhasil mengubah data');
     	} catch (\Exception $e) {

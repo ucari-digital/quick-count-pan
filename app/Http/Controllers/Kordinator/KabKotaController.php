@@ -140,7 +140,7 @@ class KabKotaController extends Controller
 
 	    	Anggota::commit($anggota_id, $input);
 
-	    	return redirect('kordinator/kabkota/edit/'.$anggota_id)
+	    	return redirect('kordinator/kabkota/edit/'.$request->anggota_id)
 	    	->with('status', 'success')
 	    	->with('message', 'Berhasil mengubah data');
     	} catch (\Exception $e) {
